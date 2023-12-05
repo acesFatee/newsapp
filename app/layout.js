@@ -13,7 +13,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <Provider>
-      <html lang="en">
+      <html data-theme="dark" lang="en">
         <body className={inter.className}>
         <div className="flex flex-row sm:gap-10">
         <Navbar/>
@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
             </label>
           </div>
 
-          <div className="my-4">
+          <div className="my-10">
             {children}
           </div>
         </div>

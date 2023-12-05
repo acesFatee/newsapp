@@ -6,7 +6,7 @@ import { Context } from "@/Context/Context";
 import { getNews } from "@/utils/api";
 
 export default function NewsFeed() {
-  const { url, news, setnews } = useContext(Context);
+  const { url, news, setnews, country, category } = useContext(Context);
 
   useEffect(() => {
     const fetchNews = async () => {
@@ -15,15 +15,13 @@ export default function NewsFeed() {
     };
 
     fetchNews();
-  }, [url, setnews]);
-
-  console.log(news);
+  }, [url, setnews, country, category]);
 
   return (
-    <div className="container-fluid grid gap-4 my-4 md:grid-cols-2 xl:grid-cols-4">
-      {news.map((n, index) => (
-        <News key={index} news={n} />
-      ))}
+    <div className="container-fluid grid gap-6 my-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      {news.map((n, index) => {
+        return <News key={index} news={n} />
+      })}
     </div>
   );
 }
