@@ -10,7 +10,7 @@ export default function Pagination() {
 
     useEffect(() => {
         const fetchLength = async () => {
-            const totalLength = await getLength(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=29e01f3d18954fa9af3faecea6e279ad`);
+            const totalLength = await getLength(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
             setpages(Math.ceil(totalLength / 6));
             setLoading(false);
         };
@@ -19,7 +19,7 @@ export default function Pagination() {
     }, [country, category]);
 
     const handlePage = (pageNumber) => {
-        seturl(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${pageNumber}&apiKey=29e01f3d18954fa9af3faecea6e279ad`);
+        seturl(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${pageNumber}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
         setpage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };

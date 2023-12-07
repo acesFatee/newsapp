@@ -42,14 +42,14 @@ export default function Navbar() {
       setheadingcategory("");
       setcategory(category);
       seturl(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=29e01f3d18954fa9af3faecea6e279ad`
+        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       return;
     }
     setheadingcategory(category[0].toUpperCase() + category.slice(1));
     setcategory(category);
     seturl(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=29e01f3d18954fa9af3faecea6e279ad`
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
     );
   };
 
@@ -77,9 +77,10 @@ export default function Navbar() {
     });
     setcountry(country);
     seturl(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=29e01f3d18954fa9af3faecea6e279ad`
+      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
     );
   };
+
   return (
     <>
       <div className="sm:w-full sm:max-w-[18rem]">

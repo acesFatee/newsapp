@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Context } from "./Context";
 
 const Provider = ({ children }) => {
@@ -20,7 +20,7 @@ const Provider = ({ children }) => {
   const [pages, setpages] = useState(Math.floor(length / 6))
   const [pagesize, setpagesize] = useState("")
   const [url, seturl] = useState(
-    `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page={page}&apiKey=29e01f3d18954fa9af3faecea6e279ad`
+    `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page={page}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
   );
 
   return (
