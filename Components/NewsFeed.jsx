@@ -4,6 +4,7 @@ import React, { useContext, useEffect } from "react";
 import News from "./News";
 import { Context } from "@/Context/Context";
 import { getNews } from "@/utils/api";
+import Pagination from "./Pagination";
 
 export default function NewsFeed() {
   const { url, news, setnews, country, category } = useContext(Context);
@@ -20,8 +21,11 @@ export default function NewsFeed() {
   return (
     <div className="container-fluid grid gap-6 my-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
       {news.map((n, index) => {
-        return <News key={index} news={n} />
+        return <News key={index} news={n} />;
       })}
+      <div className="container">
+        <Pagination />
+      </div>
     </div>
   );
 }
