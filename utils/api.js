@@ -14,7 +14,7 @@ export const getLength = async (url) => {
   try {
     const response = await fetch(url, { cache: "no-store" });
     const data = await response.json();
-    return data.articles.length;
+    return data.totalResults;
   } catch (error) {
     return 0;
   }

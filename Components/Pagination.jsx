@@ -5,12 +5,13 @@ import { getLength } from "@/utils/api";
 import React, { useContext, useEffect, useState } from "react";
 
 export default function Pagination() {
-    const { page, setpage, pages, setpages, seturl, country, category } = useContext(Context);
+    const { page, setpage, pages, setpages, seturl, country, category, url } = useContext(Context);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchLength = async () => {
-            const totalLength = await getLength(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
+            const totalLength = await getLength(`${process.env.NEXT_PUBLIC_URL}&category=${category}&country=${country}`);
+            console.log(url);
             setpages(Math.ceil(totalLength / 6));
             setLoading(false);
         };
@@ -19,7 +20,7 @@ export default function Pagination() {
     }, [country, category]);
 
     const handlePage = (pageNumber) => {
-        seturl(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${pageNumber}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`);
+        seturl(`${process.env.NEXT_PUBLIC_URL}&pageSize=6&page=${pageNumber}&category=${category}&country=${country}`);
         setpage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };

@@ -3,6 +3,11 @@
 import { Context } from "@/Context/Context";
 import Link from "next/link";
 import React, { useContext, useEffect } from "react";
+import { IoHomeOutline } from "react-icons/io5";
+import { IoSunnyOutline } from "react-icons/io5";
+import { IoMoonOutline } from "react-icons/io5";
+import { MdOutlinePlace } from "react-icons/md";
+import { TbCategory } from "react-icons/tb";
 
 export default function Navbar() {
   const {
@@ -19,13 +24,12 @@ export default function Navbar() {
     setactivecategory,
     theme,
     settheme,
-    page
+    setpage,
   } = useContext(Context);
   
   useEffect(() => {
     document.querySelector('html').setAttribute("data-theme", theme);
   }, [])
-  
   
   
   const handleThemeChange = () => {
@@ -41,15 +45,17 @@ export default function Navbar() {
     if (category === "general") {
       setheadingcategory("");
       setcategory(category);
+      setpage(1)
       seturl(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
+        `${process.env.NEXT_PUBLIC_URL}&pageSize=6&page=${1}&category=${category}&country=${country}`
       );
       return;
     }
     setheadingcategory(category[0].toUpperCase() + category.slice(1));
     setcategory(category);
+    setpage(1)
     seturl(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
+      `${process.env.NEXT_PUBLIC_URL}&pageSize=6&page=${1}&category=${category}&country=${country}`
     );
   };
 
@@ -76,8 +82,9 @@ export default function Navbar() {
       }
     });
     setcountry(country);
+    setpage(1)
     seturl(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=6&page=${1}&apiKey=${process.env.NEXT_PUBLIC_API_KEY}`
+      `${process.env.NEXT_PUBLIC_URL}&pageSize=6&page=${1}&category=${category}&country=${country}`
     );
   };
 
@@ -97,12 +104,13 @@ export default function Navbar() {
           <section className="sidebar-title items-center p-4">
             
             <div className="flex flex-col">
-              <span>News App</span>
+              <span>NewsHub</span>
               <span className="text-xs font-normal text-content2">
                 My demo project
               </span>
             </div>
           </section>
+          
           <section className="sidebar-content">
             <nav className="menu rounded-md">
               <section className="menu-section px-4">
@@ -110,44 +118,14 @@ export default function Navbar() {
                 <ul className="menu-items">
                   <Link href={"/"}>
                     <li className="menu-item menu-active">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-5 w-5 opacity-75"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
+                    <IoHomeOutline />
                       <span>Latest News</span>
                     </li>
                   </Link>
 
                   <li onClick={handleThemeChange} className="menu-item">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5 opacity-75"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
+                 {theme === "dark"? <IoSunnyOutline />:
+                  <IoMoonOutline />}
                     <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
                   </li>
 
@@ -162,27 +140,7 @@ export default function Navbar() {
                       htmlFor="menu-country"
                     >
                       <div className="flex gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="opacity-75"
-                          width="22"
-                          height="22"
-                          viewBox="0 0 24 24"
-                          strokeWidth="2"
-                          stroke="currentColor"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path
-                            stroke="none"
-                            d="M0 0h24v24H0z"
-                            fill="none"
-                          ></path>
-                          <path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11"></path>
-                          <path d="M9 7l4 0"></path>
-                          <path d="M9 11l4 0"></path>
-                        </svg>
+                      <MdOutlinePlace />
                         <span>Countries</span>
                       </div>
 
@@ -240,7 +198,7 @@ export default function Navbar() {
                           }`}
                         >
                           <img
-                            src="https://cdn-icons-png.flaticon.com/512/555/555526.png"
+                            src="https://raw.githubusercontent.com/lipis/flag-icons/d88a4d270d343828a6f9585377cd4663cce2b8ad/flags/4x3/us.svg"
                             alt="USA flag"
                             className="h-3 w-4 mr-2"
                           />
@@ -253,7 +211,7 @@ export default function Navbar() {
                           }`}
                         >
                           <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/6/62/Flag_of_France.png"
+                            src="https://raw.githubusercontent.com/lipis/flag-icons/d88a4d270d343828a6f9585377cd4663cce2b8ad/flags/4x3/fr.svg"
                             alt="German flag"
                             className="h-4 w-4 mr-2"
                           />
@@ -266,7 +224,7 @@ export default function Navbar() {
                           }`}
                         >
                           <img
-                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAFVBMVEX///8Ael7OESYAdlh6qprefILNABkFWn+WAAAA/klEQVR4nO3QSQ0AIAADsHH6l4yKPUhaCc2oWTs9586aOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHixIkTJ06cOHHy4ckD5KrN4eD2boIAAAAASUVORK5CYII="
+                            src="https://raw.githubusercontent.com/lipis/flag-icons/d88a4d270d343828a6f9585377cd4663cce2b8ad/flags/4x3/it.svg"
                             alt="Italian flag"
                             className="h-3 w-4 mr-2"
                           />
@@ -287,20 +245,7 @@ export default function Navbar() {
                       htmlFor="menu-categories"
                     >
                       <div className="flex gap-2">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5 opacity-75"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                          />
-                        </svg>
+                      <TbCategory />
                         <span>Categories</span>
                       </div>
 
