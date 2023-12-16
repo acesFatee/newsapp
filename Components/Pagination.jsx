@@ -11,7 +11,6 @@ export default function Pagination() {
     useEffect(() => {
         const fetchLength = async () => {
             const totalLength = await getLength(`${process.env.NEXT_PUBLIC_URL}&category=${category}&country=${country}`);
-            console.log(url);
             setpages(Math.ceil(totalLength / 6));
             setLoading(false);
         };
